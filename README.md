@@ -26,19 +26,19 @@ A simple shell written in **Zig**, supporting basic commands and clean SIGINT (C
 ### 🔧 Build
 
 ```bash
-./build shell
+./build.lua shell
 ```
 
 ### 🧹 Clean
 
 ```bash
-./build clean
+./build.lua clean
 ```
 
 ### ▶️ Run
 
 ```bash
-./build run
+./build.lua run
 ```
 
 ---
