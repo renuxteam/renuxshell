@@ -23,6 +23,19 @@ A simple shell written in **Zig**, supporting basic commands and clean SIGINT (C
 - [Zig](https://ziglang.org/download/)
 - GCC or Clang (for compiling the C signal wrapper)
 
+### Clone the repository 
+```bash
+git clone https://github.com/renuxteam/renuxshell.git
+```
+### Enter the `renuxshell` directory
+```bash
+cd renuxshell
+```
+### make build.lua executable
+```bash
+chmod +x build.lua
+```
+## Available commands
 ### 🔧 Build
 
 ```bash
