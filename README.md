@@ -46,7 +46,7 @@ A simple shell written in **Zig**, supporting basic commands and clean SIGINT (C
 ## 🧠 Project Structure
 
 ```
-shell/
+renuxshell/
 ├── shell.zig             # Main shell code
 ├── signal_wrapper.c      # C wrapper for signal handling
 ├── include/
