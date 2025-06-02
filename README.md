@@ -74,8 +74,7 @@ renuxshell/
 
 ## 👨‍💻 Author
 
-**Renan Lucas** – Ethical hacker, engineer, and founder of RL-INNOVATION  
-🌐 [renux.dev](https://renux.dev) *(coming soon)*
+**Renan Lucas** – Ethical hacker, engineer, creator of RenuxOS 
 
 ---
 
