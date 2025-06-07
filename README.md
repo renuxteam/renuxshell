@@ -31,27 +31,17 @@ git clone https://github.com/renuxteam/renuxshell.git
 ```bash
 cd renuxshell
 ```
-### make build.lua executable
-```bash
-chmod +x build.lua
-```
 ## Available commands
 ### 🔧 Build
 
 ```bash
-./build.lua shell
-```
-
-### 🧹 Clean
-
-```bash
-./build.lua clean
+zig build shell
 ```
 
 ### ▶️ Run
 
 ```bash
-./build.lua run
+.zig build run
 ```
 
 ---
@@ -60,21 +50,17 @@ chmod +x build.lua
 
 ```
 renuxshell/
-├── shell.zig             # Main shell code
-├── signal_wrapper.c      # C wrapper for signal handling
-├── include/
-│   └── signal_wrapper.h  # Header for Zig-C interop
-├── build.lua             # Build/clean/run script
-└── README.md             # This file
+├── build.zig                  # Zig build script
+└── src/                       # Source code
+    ├── include/               # Header files for C/Zig interop
+    │   └── signal_wrapper.h
+    ├── shell.zig              # Main shell code in Zig
+    └── signal_wrapper.c       # C wrapper for signal handling
+
 ```
 
 ---
 
-## Running RenuxShell
-![image](https://github.com/user-attachments/assets/da303095-b03e-4226-9281-7bc8b9b09e22)
-
-
----
 
 ## 🧪 To-Do
 
@@ -87,7 +73,7 @@ renuxshell/
 
 ## 👨‍💻 Author
 
-**Renan Lucas** – Ethical hacker, engineer, creator of RenuxOS 
+**Renan Lucas** – A AuDHD, ethical hacker, engineer, creator of RenuxOS 
 
 ---
 
