@@ -7,6 +7,11 @@ const signal = @cImport({
     @cInclude("signal_wrapper.h");
     @cInclude("signal.h");
 });
+
+const termios = @cImport({
+    @cInclude("termios.h");
+    @cInclude("unistd.h");
+});
 // Import necessary POSIX functions
 const c_errno = @cImport({
     @cInclude("errno.h");
@@ -26,6 +31,14 @@ fn get_error() c_int {
 }
 
 pub fn main() !void {
+    // ignore SIGINT (Ctrl+C) to prevent the shell from exiting
+    signal.set_ignore_signal(signal.SIGINT, signal.soft_sigint_handler);
+    var term: termios.termios = undefined;
+    // Desative the ISIG flag to ignore signals like SIGINT (Ctrl+C)
+    _ = termios.tcgetattr(termios.STDIN_FILENO, &term);
+    term.c_lflag &= ~@as(termios.tcflag_t, termios.ISIG); // Disable ISIG flag
+    _ = termios.tcsetattr(termios.STDIN_FILENO, termios.TCSANOW, &term);
+
     // Set the SHELL environment variable to "RenuxShell"
     _ = setenv("SHELL", "RenuxShell", 1);
     // Initialize the shell
@@ -37,8 +50,7 @@ pub fn main() !void {
     // Buffer for reading input
     var buf: [1024]u8 = undefined;
     // Main loop for the shell
-    // ignore SIGINT (Ctrl+C) to prevent the shell from exiting
-    signal.set_ignore_signal(signal.SIGINT, signal.soft_sigint_handler);
+
     while (true) {
 
         // Print the current working directory
