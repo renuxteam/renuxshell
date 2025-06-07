@@ -1,5 +1,11 @@
 # 🐚 RenuxShell
 
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/242b0eb2-7db1-4b7b-a01d-4f525a5c1228" alt="RenuxShell demo">
+</p>
+
+
+
 A simple shell written in **Zig**, supporting basic commands and clean SIGINT (Ctrl+C) handling. This is the official shell for the **Renux OS** project — fast, minimal, and built by and for out-of-the-box thinkers.
 
 ---
