@@ -41,7 +41,7 @@ zig build
 ### ▶️ Run
 
 ```bash
-.zig build run
+zig build run
 ```
 
 ---
