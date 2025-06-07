@@ -35,7 +35,7 @@ cd renuxshell
 ### 🔧 Build
 
 ```bash
-zig build shell
+zig build 
 ```
 
 ### ▶️ Run
