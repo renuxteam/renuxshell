@@ -24,11 +24,15 @@ jobs:
           name: RenuxShell
           path: RenuxShell.tar.xz
 
+      - name: Generate tag name
+        id: generate_tag
+        run: echo "tag_name=prerel-$(date +%Y%m%d%H%M%S)" >> $GITHUB_ENV
+
       - name: Create Pre-release
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: prerel-$(date +%Y%m%d%H%M%S)
-          name: "Pre-release (DEV) $(date +%Y-%m-%d_%H-%M-%S)"
+          tag_name: ${{ env.tag_name }}
+          name: "Pre-release (DEV) ${{ env.tag_name }}"
           body: |
             ⚠️ This shell is under development!
             This is a development pre-release of RenuxShell.
