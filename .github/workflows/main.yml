@@ -43,31 +43,44 @@ jobs:
       - name: 🗜️ Package RenuxShell
         run: |
           temp_dir=$(mktemp -d)
-          cp -r . $temp_dir
-          tar --exclude-vcs --exclude='.git' -cJf $ARTIFACT_NAME -C $temp_dir .
-          rm -rf $temp_dir
+          cp -r . "$temp_dir"
+          tar --exclude-vcs --exclude='.git' -cJf "$ARTIFACT_NAME" -C "$temp_dir" .
+          rm -rf "$temp_dir"
 
+      - name: 🔍 Debug - list artifacts
+        run: |
+          echo "Looking for $ARTIFACT_NAME in $(pwd):"
+          ls -lah .
 
-      - name: 📂 Upload artifact
+      - name: 📂 Upload CI artifact
         uses: actions/upload-artifact@v4
         with:
           name: $ARTIFACT_NAME
           path: $ARTIFACT_NAME
 
-      - name: 📦 Create GitHub Release
-        uses: softprops/action-gh-release@v2
+      - name: 🏷️ Create GitHub Release
+        id: create_release
+        uses: actions/create-release@v1
         with:
           tag_name: ${{ env.TAG_NAME }}
-          name: "Pre-release (${{ env.RELEASE_NAME }})"
+          release_name: "Pre-release (${{ env.RELEASE_NAME }})"
           body: |
             ⚠️ **Attention**: This is a DEV pre-release of RenuxShell  
             - Tag: ${{ env.TAG_NAME }}  
             - Artifact: $ARTIFACT_NAME  
             - Automatically built via CI
+          draft: false
           prerelease: true
-          files: $ARTIFACT_NAME
         env:
           GITHUB_TOKEN: ${{ secrets.GH_BOT }}
+
+      - name: 📤 Upload Release Asset
+        uses: actions/upload-release-asset@v1
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ${{ env.ARTIFACT_NAME }}
+          asset_name: ${{ env.ARTIFACT_NAME }}
+          asset_content_type: application/x-xz
 
       - name: 🗑️ Cleanup
         if: always()
