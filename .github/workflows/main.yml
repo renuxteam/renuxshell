@@ -1,0 +1,39 @@
+name: Build RenuxShell and Publish Pre-release
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up environment
+        run: sudo apt-get update && sudo apt-get install -y xz-utils
+
+      - name: Package as RenuxShell.tar.xz
+        run: |
+          tar -cJf RenuxShell.tar.xz ./*
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: RenuxShell
+          path: RenuxShell.tar.xz
+
+      - name: Create Pre-release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: prerel-$(date +%Y%m%d%H%M%S)
+          name: "Pre-release (DEV) $(date +%Y-%m-%d_%H-%M-%S)"
+          body: |
+            ⚠️ This shell is under development!
+            This is a development pre-release of RenuxShell.
+            The file RenuxShell.tar.xz was created by cloning and packaging the repository automatically.
+          prerelease: true
+          files: RenuxShell.tar.xz
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
