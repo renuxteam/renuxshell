@@ -42,7 +42,11 @@ jobs:
 
       - name: 🗜️ Package RenuxShell
         run: |
-          tar --exclude='.git' -cJf $ARTIFACT_NAME ./
+          temp_dir=$(mktemp -d)
+          cp -r . $temp_dir
+          tar --exclude-vcs --exclude='.git' -cJf $ARTIFACT_NAME -C $temp_dir .
+          rm -rf $temp_dir
+
 
       - name: 📂 Upload artifact
         uses: actions/upload-artifact@v4
